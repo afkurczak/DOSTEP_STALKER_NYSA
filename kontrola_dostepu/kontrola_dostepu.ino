@@ -17,7 +17,7 @@ MFRC522::StatusCode status;
 
 const byte ROWS = 4;
 const byte COLS = 4;
-int x = 4;
+const int x = 4;
 int blockNum = nr_block;
 byte blockData [len_block];
 byte readBlockData[len_block];
@@ -25,10 +25,8 @@ byte bufferLen = len_block;
 byte rowPINS[ROWS] = {13, 12, 11, 10};
 byte colPINS[COLS] = {9, 8, 7, 6};
 char key_buff = 'D'; 
-int master_card1;
-int master_card2;
-int master_card3;
-int master_card4;
+int master_card[x];
+
 
 byte block[8]={
     B11111,
@@ -98,10 +96,10 @@ void RFID (){
  
   ReadDataFromBlock(blockNum, readBlockData);
 
-  master_card1 = readBlockData[1];
-  master_card2 = readBlockData[2];
-  master_card3 = readBlockData[3];
-  master_card4 = readBlockData[4];
+  master_card[1] = readBlockData[1];
+  master_card[2] = readBlockData[2];
+  master_card[3] = readBlockData[3];
+  master_card[4] = readBlockData[4];
 
   delay(100);
   mfrc522.PICC_HaltA();
@@ -135,13 +133,13 @@ void karta ()
   lcd.setCursor (0, 1);
   lcd.print ("DOSTEPNE:     1234");
   lcd.setCursor(14,2); 
-  if (master_card1 == 'X') {lcd.write(0);} else {lcd.write(1);}
+  if (master_card[1] == 'X') {lcd.write(0);} else {lcd.write(1);}
   lcd.setCursor(15,2);
-  if (master_card2 == 'X') {lcd.write(0);} else {lcd.write(1);}
+  if (master_card[2] == 'X') {lcd.write(0);} else {lcd.write(1);}
   lcd.setCursor(16,2);
-  if (master_card3 == 'X') {lcd.write(0);} else {lcd.write(1);}
+  if (master_card[3] == 'X') {lcd.write(0);} else {lcd.write(1);}
   lcd.setCursor(17,2);
-  if (master_card4 == 'X') {lcd.write(0);} else {lcd.write(1);}
+  if (master_card[4] == 'X') {lcd.write(0);} else {lcd.write(1);}
 }
 
 void klucz ()
